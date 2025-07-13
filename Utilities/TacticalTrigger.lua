@@ -154,7 +154,8 @@ function TacticalTrigger:UNIT_AURA(event, unit)
     if not next(triggerAuras) then return end
     for spellId, config in pairs(triggerAuras) do
         if config.target == unit and AuraMonitor:HasAura(spellId, unit) then
-            ActivateTrigger(self, spellId)
+            local payload = { triggerName = tostring(spellId), action = "NitroBoots" }
+            ActivateTrigger(self, payload)
         end
     end
 end

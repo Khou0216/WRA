@@ -76,9 +76,12 @@ function QuickOptionsLogic:BuildAndRegisterQuickOptions()
                 set = function(_, v)
                     WRA:PrintDebug("[QuickOptions Set] Key:", opt.key, "New Value:", v) -- DEBUG
                     specDB[opt.key] = v
-                    -- Refresh QuickConfig panel if it exists and is shown
-                    if WRA.QuickConfig and WRA.QuickConfig.RefreshPanel and quickPanelFrame and quickPanelFrame.frame:IsShown() then
-                         WRA.QuickConfig:RefreshPanel()
+                    -- Refresh the QuickConfig panel if it exists and the window is visible
+                    if WRA.QuickConfig and WRA.QuickConfig.RefreshPanel then
+                        local qpFrame = WRA.QuickConfig:GetQuickPanelFrame()
+                        if qpFrame and qpFrame.frame and qpFrame.frame:IsShown() then
+                            WRA.QuickConfig:RefreshPanel()
+                        end
                     end
                 end,
             }
@@ -95,8 +98,11 @@ function QuickOptionsLogic:BuildAndRegisterQuickOptions()
                 get = function() return specDB[opt.key] end,
                 set = function(_, v)
                    specDB[opt.key] = v
-                   if WRA.QuickConfig and WRA.QuickConfig.RefreshPanel and quickPanelFrame and quickPanelFrame.frame:IsShown() then
-                        WRA.QuickConfig:RefreshPanel()
+                   if WRA.QuickConfig and WRA.QuickConfig.RefreshPanel then
+                        local qpFrame = WRA.QuickConfig:GetQuickPanelFrame()
+                        if qpFrame and qpFrame.frame and qpFrame.frame:IsShown() then
+                            WRA.QuickConfig:RefreshPanel()
+                        end
                    end
                 end,
             }
